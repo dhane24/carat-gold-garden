@@ -1,16 +1,14 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Slider } from "@/components/ui/slider";
-import { Calendar, PiggyBank, RefreshCw } from "lucide-react";
+import { Calendar, PiggyBank, RefreshCw, Coins } from "lucide-react";
 
 const AutoSaveSetup = () => {
   const [amount, setAmount] = useState(5);
   const [frequency, setFrequency] = useState("weekly");
 
-  // Calculate monthly and yearly totals
   const getMonthlyTotal = () => {
     switch (frequency) {
       case "daily":

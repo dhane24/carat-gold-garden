@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, PiggyBank, Wallet } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -9,10 +9,28 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useToast } from "@/hooks/use-toast";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 const formSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
 });
+
+// Sample data for the gold price chart
+const goldPriceData = [
+  { date: 'Jan', price: 52.14 },
+  { date: 'Feb', price: 53.25 },
+  { date: 'Mar', price: 54.10 },
+  { date: 'Apr', price: 55.32 },
+  { date: 'May', price: 56.15 },
+  { date: 'Jun', price: 55.80 },
+  { date: 'Jul', price: 56.45 },
+  { date: 'Aug', price: 56.90 },
+  { date: 'Sep', price: 57.35 },
+  { date: 'Oct', price: 57.80 },
+  { date: 'Nov', price: 58.10 },
+  { date: 'Dec', price: 58.24 },
+];
 
 const HeroSection = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -35,6 +53,18 @@ const HeroSection = () => {
       description: "You've been added to our waitlist.",
     });
   };
+
+  useEffect(() => {
+    const handleOpenWaitlistDialog = () => {
+      setIsDialogOpen(true);
+    };
+
+    document.addEventListener('open-waitlist-dialog', handleOpenWaitlistDialog);
+
+    return () => {
+      document.removeEventListener('open-waitlist-dialog', handleOpenWaitlistDialog);
+    };
+  }, []);
 
   return (
     <div className="container mx-auto px-4 py-12 md:py-24">
@@ -71,11 +101,67 @@ const HeroSection = () => {
           <div className="relative rounded-2xl overflow-hidden border border-gold/30 bg-card p-1">
             <div className="aspect-square md:aspect-[4/5] rounded-xl overflow-hidden bg-charcoal flex items-center justify-center">
               {/* Real-time gold price chart */}
-              <img 
-                src="https://images.unsplash.com/photo-1642543348590-c51eadfad491?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                alt="Gold price chart" 
-                className="w-full h-full object-cover"
-              />
+              <div className="w-full h-full p-4">
+                <ChartContainer 
+                  className="h-full w-full" 
+                  config={{
+                    gold: {
+                      theme: {
+                        light: "#F5C65D",
+                        dark: "#F5C65D"
+                      }
+                    }
+                  }}
+                >
+                  <AreaChart
+                    data={goldPriceData}
+                    margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
+                  >
+                    <defs>
+                      <linearGradient id="goldGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#F5C65D" stopOpacity={0.8} />
+                        <stop offset="95%" stopColor="#F5C65D" stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                    <XAxis 
+                      dataKey="date"
+                      stroke="#666"
+                      fontSize={12}
+                      tickLine={false}
+                      axisLine={false}
+                    />
+                    <YAxis 
+                      domain={['dataMin - 1', 'dataMax + 1']}
+                      stroke="#666"
+                      fontSize={12}
+                      tickLine={false}
+                      axisLine={false}
+                      tickFormatter={(value) => `£${value}`}
+                    />
+                    <Tooltip
+                      content={({ active, payload }) => {
+                        if (active && payload && payload.length) {
+                          return (
+                            <div className="bg-background border border-gold/30 px-3 py-2 rounded-md shadow-lg">
+                              <p className="text-sm font-medium">{payload[0].payload.date}</p>
+                              <p className="text-gold font-bold">£{payload[0].value}</p>
+                            </div>
+                          );
+                        }
+                        return null;
+                      }}
+                    />
+                    <Area 
+                      type="monotone" 
+                      dataKey="price" 
+                      stroke="#F5C65D" 
+                      fillOpacity={1} 
+                      fill="url(#goldGradient)" 
+                      strokeWidth={2}
+                    />
+                  </AreaChart>
+                </ChartContainer>
+              </div>
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent"></div>
               <div className="absolute bottom-6 left-6 right-6 text-white">
                 <div className="font-semibold">Current Gold Price</div>

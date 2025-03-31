@@ -3,6 +3,10 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const WelcomeSection = () => {
+  const handleWaitlistClick = () => {
+    document.dispatchEvent(new CustomEvent('open-waitlist-dialog'));
+  };
+
   return (
     <section className="py-12 bg-background">
       <div className="container mx-auto px-4">
@@ -14,7 +18,10 @@ const WelcomeSection = () => {
             Whether you're looking to build wealth or create a savings habit, Carat provides the 
             tools to effortlessly grow your savings with the power of gold.
           </p>
-          <Button className="bg-gold hover:bg-gold-dark text-charcoal">
+          <Button 
+            className="bg-gold hover:bg-gold-dark text-charcoal"
+            onClick={handleWaitlistClick}
+          >
             Start Your Gold Journey <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>

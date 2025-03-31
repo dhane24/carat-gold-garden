@@ -7,6 +7,7 @@ import GoldRateTracker from "../components/GoldRateTracker";
 import AutoSaveSetup from "../components/AutoSaveSetup";
 import InvestmentSimulator from "../components/InvestmentSimulator";
 import HowItWorks from "../components/HowItWorks";
+import AdditionalFeatures from "../components/AdditionalFeatures";
 import Faq from "../components/Faq";
 import Footer from "../components/Footer";
 
@@ -18,6 +19,7 @@ const Index = () => {
         <HeroSection />
         <WelcomeSection />
         <HomeFeatures />
+        <AdditionalFeatures />
         <HowItWorks />
         <GoldRateTracker />
         <AutoSaveSetup />

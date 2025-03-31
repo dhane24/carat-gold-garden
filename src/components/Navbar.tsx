@@ -11,6 +11,11 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleWaitlistClick = () => {
+    // This will be handled by the HeroSection component's dialog
+    document.dispatchEvent(new CustomEvent('open-waitlist-dialog'));
+  };
+
   return (
     <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <div className="container mx-auto px-4 py-4">
@@ -22,20 +27,13 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
-            <Link to="/" className="text-foreground hover:text-gold transition-colors">
-              Home
-            </Link>
-            <Link to="/dashboard" className="text-foreground hover:text-gold transition-colors">
-              Gold Vault
-            </Link>
-            <Link to="/dashboard" className="text-foreground hover:text-gold transition-colors">
-              Auto Save
-            </Link>
-            <Link to="/dashboard" className="text-foreground hover:text-gold transition-colors">
-              Convert
-            </Link>
-            <Button variant="default" className="bg-gold hover:bg-gold-dark text-charcoal">
-              Get Started <ArrowRight className="ml-2 h-4 w-4" />
+            {/* Menu items hidden as requested */}
+            <Button 
+              variant="default" 
+              className="bg-gold hover:bg-gold-dark text-charcoal"
+              onClick={handleWaitlistClick}
+            >
+              Join Waitlist <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
 
@@ -58,40 +56,16 @@ const Navbar = () => {
         {/* Mobile Navigation Menu */}
         {isMenuOpen && (
           <div className="md:hidden pt-4 pb-2 flex flex-col space-y-4">
-            <Link 
-              to="/" 
-              className="text-foreground hover:text-gold transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Home
-            </Link>
-            <Link 
-              to="/dashboard" 
-              className="text-foreground hover:text-gold transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Gold Vault
-            </Link>
-            <Link 
-              to="/dashboard" 
-              className="text-foreground hover:text-gold transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Auto Save
-            </Link>
-            <Link 
-              to="/dashboard" 
-              className="text-foreground hover:text-gold transition-colors py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Convert
-            </Link>
+            {/* Menu items hidden as requested */}
             <Button 
               variant="default" 
               className="bg-gold hover:bg-gold-dark text-charcoal w-full"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={() => {
+                setIsMenuOpen(false);
+                handleWaitlistClick();
+              }}
             >
-              Get Started <ArrowRight className="ml-2 h-4 w-4" />
+              Join Waitlist <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
         )}

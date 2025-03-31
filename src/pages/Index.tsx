@@ -6,6 +6,8 @@ import WelcomeSection from "../components/WelcomeSection";
 import GoldRateTracker from "../components/GoldRateTracker";
 import AutoSaveSetup from "../components/AutoSaveSetup";
 import InvestmentSimulator from "../components/InvestmentSimulator";
+import HowItWorks from "../components/HowItWorks";
+import Faq from "../components/Faq";
 import Footer from "../components/Footer";
 
 const Index = () => {
@@ -16,9 +18,11 @@ const Index = () => {
         <HeroSection />
         <WelcomeSection />
         <HomeFeatures />
+        <HowItWorks />
         <GoldRateTracker />
         <AutoSaveSetup />
         <InvestmentSimulator />
+        <Faq />
       </main>
       <Footer />
     </div>

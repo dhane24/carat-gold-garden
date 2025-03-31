@@ -1,8 +1,9 @@
 
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
-import GoldRateTracker from "../components/GoldRateTracker";
 import HomeFeatures from "../components/HomeFeatures";
+import HomeContent from "../components/HomeContent";
+import GoldRateTracker from "../components/GoldRateTracker";
 import AutoSaveSetup from "../components/AutoSaveSetup";
 import InvestmentSimulator from "../components/InvestmentSimulator";
 import Footer from "../components/Footer";
@@ -14,6 +15,7 @@ const Index = () => {
       <main className="flex-grow">
         <HeroSection />
         <HomeFeatures />
+        <HomeContent />
         <GoldRateTracker />
         <AutoSaveSetup />
         <InvestmentSimulator />

@@ -56,6 +56,21 @@ const HistoricalGoldChart = () => {
     return ((lastPrice - firstPrice) / firstPrice * 100).toFixed(2);
   };
 
+  // Calculate years between first and last data point
+  const calculateYearDifference = () => {
+    const firstYear = parseInt(chartData[0].year);
+    const lastYear = parseInt(chartData[chartData.length - 1].year);
+    return lastYear - firstYear;
+  };
+
+  // Calculate average annual return
+  const calculateAnnualReturn = () => {
+    const yearDiff = calculateYearDifference();
+    if (yearDiff <= 0) return "0.00"; // Avoid division by zero
+    
+    return (Number(percentIncrease()) / yearDiff).toFixed(2);
+  };
+
   return (
     <motion.section 
       className="py-16 bg-background"
@@ -128,14 +143,14 @@ const HistoricalGoldChart = () => {
                   <CardContent className="p-4">
                     <p className="text-sm text-muted-foreground">Total Growth</p>
                     <p className="text-2xl font-bold text-green-500">+{percentIncrease()}%</p>
-                    <p className="text-xs text-muted-foreground">Over {chartData[chartData.length - 1].year - chartData[0].year} years</p>
+                    <p className="text-xs text-muted-foreground">Over {calculateYearDifference()} years</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-muted/50">
                   <CardContent className="p-4">
                     <p className="text-sm text-muted-foreground">Average Annual Return</p>
                     <p className="text-2xl font-bold text-green-500">
-                      {(Number(percentIncrease()) / (chartData[chartData.length - 1].year - chartData[0].year)).toFixed(2)}%
+                      {calculateAnnualReturn()}%
                     </p>
                     <p className="text-xs text-muted-foreground">Per year</p>
                   </CardContent>

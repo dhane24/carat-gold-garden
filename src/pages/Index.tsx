@@ -1,4 +1,5 @@
 
+import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
 import HomeFeatures from "../components/HomeFeatures";
@@ -10,6 +11,8 @@ import HowItWorks from "../components/HowItWorks";
 import AdditionalFeatures from "../components/AdditionalFeatures";
 import Faq from "../components/Faq";
 import Footer from "../components/Footer";
+import CtaSection from "../components/CtaSection";
+import HistoricalGoldChart from "../components/HistoricalGoldChart";
 
 const Index = () => {
   return (
@@ -19,12 +22,14 @@ const Index = () => {
         <HeroSection />
         <WelcomeSection />
         <HomeFeatures />
-        <AdditionalFeatures />
         <HowItWorks />
+        <HistoricalGoldChart />
+        <AdditionalFeatures />
         <GoldRateTracker />
         <AutoSaveSetup />
         <InvestmentSimulator />
         <Faq />
+        <CtaSection />
       </main>
       <Footer />
     </div>
